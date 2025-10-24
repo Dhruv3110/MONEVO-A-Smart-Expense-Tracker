@@ -1,7 +1,7 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException
-from services.ocr_service import extract_text
-from services.parse_service import parse_text
-from services.categorize_service import categorize_items
+from server.services.ocr_service import extract_text
+from server.services.parse_service import parse_text
+from server.services.categorize_service import categorize_items
 
 router = APIRouter(prefix="/api/expenses", tags=["Expenses"])
 
