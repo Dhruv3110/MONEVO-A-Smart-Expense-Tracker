@@ -1,5 +1,5 @@
-from config.settings import app
-from routes.expenses_route import router as expenses_router
+from server.config.settings import app
+from server.routes.expenses_route import router as expenses_router
 from fastapi.responses import JSONResponse
 from fastapi.requests import Request
 
