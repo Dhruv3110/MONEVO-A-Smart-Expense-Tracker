@@ -1,0 +1,16 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#6c63ff" stroke="none"/>
+  
+  <!-- Decorative dots -->
+  <circle cx="100" cy="30" r="2" fill="white" opacity="0.7"/>
+  <circle cx="170" cy="100" r="2" fill="white" opacity="0.7"/>
+  <circle cx="100" cy="170" r="2" fill="white" opacity="0.7"/>
+  <circle cx="30" cy="100" r="2" fill="white" opacity="0.7"/>
+
+  <!-- Centered and touching DG Text -->
+  <text x="100" y="110" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" fill="white">
+    <tspan font-size="60" font-weight="bold">D</tspan>
+    <tspan font-size="80" font-weight="bold" dx="-20">G</tspan>
+  </text>
+</svg>
