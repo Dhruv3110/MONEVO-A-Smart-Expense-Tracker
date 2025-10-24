@@ -5,6 +5,12 @@ from server.services.categorize_service import categorize_items
 import logging
 router = APIRouter(prefix="/api/expenses", tags=["Expenses"])
 
+ALLOWED_CONTENT_TYPES = ["image/jpeg", "image/png", "image/jpg"]
+
+async def validate_file(file: UploadFile):
+    if file.content_type not in ALLOWED_CONTENT_TYPES:
+        raise ValueError(f"Invalid file type: {file.content_type}. Only JPEG/PNG allowed.")
+
 @router.post("/upload")
 async def upload_receipt(file: UploadFile = File(...)):
     try:
