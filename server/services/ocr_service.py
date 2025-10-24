@@ -18,6 +18,8 @@ def extract_text(image_bytes):
         processed_image = preprocess_image(image)
         custom_config = r"--oem 3 --psm 6 -c preserve_interword_spaces=1"
         text = pytesseract.image_to_string(processed_image, config=custom_config)
+        if not text.strip():
+            raise ValueError("No text detected in image.")
         return text
     except Exception:
         raise ValueError("Text extraction from image failed.")

@@ -10,7 +10,7 @@ services:
         sync: false   # Set value later in Render Dashboard
 
     buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr
+      apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-eng
       pip install --upgrade pip
       pip install -r server/requirements.txt
 
