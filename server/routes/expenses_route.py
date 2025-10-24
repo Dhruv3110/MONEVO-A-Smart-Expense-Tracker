@@ -9,6 +9,10 @@ router = APIRouter(prefix="/api/expenses", tags=["Expenses"])
 async def upload_receipt(file: UploadFile = File(...)):
     try:
         image_bytes = await file.read()
+        file.file.seek(0)  # Reset pointer
+        print(f"Uploaded file: {file.filename}, size: {len(image_bytes)} bytes")  # <-- Debug
+        if len(image_bytes) == 0:
+            raise ValueError("Empty file received")
         ocr_text = extract_text(image_bytes)
         items = parse_text(ocr_text)
         categorized_items = categorize_items(items)
