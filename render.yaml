@@ -1,6 +1,7 @@
 services:
   - type: web
     name: smart-expense-backend
+    env: docker
     runtime: python
     region: oregon
     plan: free
@@ -9,9 +10,9 @@ services:
       - key: HF_API_TOKEN
         sync: false   # Set value later in Render Dashboard
 
-    buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-eng
-      pip install --upgrade pip
-      pip install -r server/requirements.txt
+    # buildCommand: |
+    #   apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-eng
+    #   pip install --upgrade pip
+    #   pip install -r server/requirements.txt
 
     startCommand: uvicorn server.main:app --host 0.0.0.0 --port $PORT
