@@ -40,14 +40,14 @@ const HeroSection = ({
       
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl">
-        <div className="mb-8 relative">
+        <div className="mb-8 relative mt-8 lg:mt-0">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-40 h-40 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-3xl animate-pulse "></div>
           </div>
           <Sparkles className="w-28 h-28 mx-auto text-white relative z-10 animate-spin-slow drop-shadow-2xl" />
         </div>
         
-        <h1 className="text-7xl md:text-8xl font-black text-white mb-6 tracking-tight">
+        <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 animate-gradient">
             MONEVO
           </span>

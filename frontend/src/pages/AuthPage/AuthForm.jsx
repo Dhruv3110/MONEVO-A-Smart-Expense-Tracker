@@ -2,12 +2,15 @@
 
 // File: AuthForm.jsx
 import React, { useState, useEffect } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import AuthToggle from "./AuthToggle";
 
 const AuthForm = ({ authMode, setAuthMode, onSubmit, isLoading }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   useEffect(() => {
     // clear name when switching to login to avoid accidental submission
@@ -76,16 +79,35 @@ const AuthForm = ({ authMode, setAuthMode, onSubmit, isLoading }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none"
-            placeholder="••••••••"
-            required
-          />
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Password
+          </label>
+
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 pr-12 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none"
+              placeholder="••••••••"
+              required
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-cyan-600 transition"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <EyeOff className="w-5 h-5" />
+              ) : (
+                <Eye className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
+
 
         <button
           type="submit"

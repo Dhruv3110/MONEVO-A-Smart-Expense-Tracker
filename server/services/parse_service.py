@@ -1,55 +1,29 @@
-import re
+import logging
+from .preprocess_text import preprocess_text
+from .llm_parser import parse_with_llm
+from .validate_items import validate_items
+from .regex_parser import parse_text_regex
 
-def parse_text(text):
-    """Extract product items and prices from OCR text."""
+def parse_text(text: str):
+    """
+    Hybrid parser:
+    1. Try LLM
+    2. Validate output
+    3. Fallback to regex
+    """
+    cleaned_text = preprocess_text(text)
+
     try:
-        lines = [line.strip() for line in text.splitlines() if line.strip()]
-        items, item_names, prices = [], [], []
+        logging.info("Using LLM parser")
+        llm_result = parse_with_llm(cleaned_text)
+        items = validate_items(llm_result.get("items", []))
 
-        price_pattern = re.compile(r"[$€₹]?\s*([0-9]+(?:\.[0-9]{1,2})?)")
-        ignore_keywords = [
-            "order", "host", "payment", "total", "tax", "tip", "visa", "subtotal",
-            "amount", "transaction", "approved", "change", "cash", "thank", "copy",
-            "customer", "authorization", "type", "reader", "sale", "payment id",
-            "card", "grand total", "date", "time", "address", "phone", "fax",
-            "receipt", "invoice", "balance", "due", "account", "@", "www", ".com"
-        ]
-        phone_pattern = re.compile(r"\b\d{3,}[-\s]?\d{2,}[-\s]?\d{2,}\b")
+        if items:
+            return items
 
-        def should_ignore(line):
-            lower = line.lower()
-            return (
-                any(k in lower for k in ignore_keywords)
-                or phone_pattern.search(line)
-                or re.search(r"\d{4,}", line)
-                or (len(line.split()) == 1 and line.replace(".", "").isdigit())
-            )
+        raise ValueError("No valid items from LLM")
 
-        clean_lines = [line for line in lines if not should_ignore(line)]
-
-        for line in clean_lines:
-            qty = 1
-            qty_match = re.search(r"(?:(\d+)\s*[xX]?\s+)|(?:[xX]\s*(\d+))", line)
-            if qty_match:
-                qty = int(qty_match.group(1) or qty_match.group(2))
-                line = re.sub(r"(?:(\d+)\s*[xX]?\s+)|(?:[xX]\s*(\d+))", "", line).strip()
-
-            if price_pattern.search(line) and any(c.isalpha() for c in line):
-                name = price_pattern.sub("", line).strip(" :-=")
-                match = price_pattern.search(line)
-                price = float(match.group(1))
-                items.append({"name": name, "price": price, "qty": qty})
-            elif price_pattern.fullmatch(line) or "$" in line or "€" in line:
-                match = price_pattern.search(line)
-                if match:
-                    prices.append(float(match.group(1)))
-            elif any(c.isalpha() for c in line):
-                item_names.append(line)
-
-        if not items and item_names and prices:
-            for name, price in zip(item_names, prices):
-                items.append({"name": name, "price": price, "qty": 1})
-
-        return items
-    except Exception:
-        raise ValueError("Parsing OCR text failed.")
+    except Exception as e:
+        logging.warning(f"LLM failed, fallback to regex: {e}")
+        regex_items = parse_text_regex(cleaned_text)
+        return validate_items(regex_items)

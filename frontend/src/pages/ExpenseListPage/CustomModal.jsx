@@ -1,12 +1,12 @@
-import {  Trash2, X as XIcon } from "lucide-react";
+import { Trash2, X as XIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CustomModal = ({
-    handleDelete,
-    showDeleteModal,
-    setShowDeleteModal,
-    modalRef,
-    setSelectedId
+  handleDelete,
+  showDeleteModal,
+  setShowDeleteModal,
+  modalRef,
+  setSelectedId
 }) => {
   return (
     <AnimatePresence>
@@ -23,24 +23,24 @@ const CustomModal = ({
           role="dialog"
         >
           {/* dim backdrop */}
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
           {/* sheet/card */}
           <motion.div
             ref={modalRef}
-            initial={{ y: -20, opacity: 0 }}        // slide down from top
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -12, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative z-10 w-[90%] max-w-md rounded-2xl bg-white shadow-2xl ring-1 ring-black/5"
+            className="relative z-10 w-[90%] max-w-md rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl ring-1 ring-slate-700 border border-slate-700"
           >
             {/* Header with X */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-slate-700">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100">
-                  <Trash2 className="text-red-600" />
+                <div className="w-9 h-9 flex items-center justify-center rounded-full bg-red-500/20 border border-red-500/30">
+                  <Trash2 className="text-red-400" size={18} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-slate-100">
                   Delete expense
                 </h3>
               </div>
@@ -50,7 +50,7 @@ const CustomModal = ({
                   setShowDeleteModal(false);
                   setSelectedId(null);
                 }}
-                className="p-2 rounded-md hover:bg-gray-100 transition"
+                className="p-2 rounded-md hover:bg-slate-700 transition text-slate-400 hover:text-slate-200"
                 aria-label="Close"
               >
                 <XIcon size={18} />
@@ -59,34 +59,33 @@ const CustomModal = ({
 
             {/* Body */}
             <div className="px-6 py-5">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-slate-300">
                 Are you sure you want to delete this expense? This action
                 cannot be undone.
               </p>
 
-              <div className="mt-4 text-sm text-gray-500">
-                <em className="block">Tip:</em>
-                <span>
-                  You can recover details from your bank or receipts manually.
-                </span>
+              <div className="mt-4 p-3 rounded-lg bg-slate-800/50 border border-slate-700">
+                <p className="text-xs text-slate-400">
+                  <span className="font-semibold text-cyan-400">Tip:</span> You can recover details from your bank or receipts manually.
+                </p>
               </div>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
+            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-700">
               <button
                 onClick={() => {
                   setShowDeleteModal(false);
                   setSelectedId(null);
                 }}
-                className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition text-sm font-medium"
+                className="px-4 py-2 rounded-full bg-slate-700 hover:bg-slate-600 transition text-sm font-medium text-slate-200"
               >
                 Cancel
               </button>
 
               <button
                 onClick={handleDelete}
-                className="px-4 py-2 rounded-full bg-red-600 hover:bg-red-700 text-white text-sm font-medium shadow-sm"
+                className="px-4 py-2 rounded-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm font-medium shadow-lg hover:shadow-red-500/50 transition-all"
               >
                 Delete
               </button>
@@ -95,7 +94,7 @@ const CustomModal = ({
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
 export default CustomModal;

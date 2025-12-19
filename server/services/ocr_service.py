@@ -19,12 +19,16 @@ def extract_text(image_bytes):
     try:
         image = Image.open(io.BytesIO(image_bytes))
         logging.info(f"OCR Image Mode: {image.mode}, Size: {image.size}")
+
         processed_image = preprocess_image(image)
+
         custom_config = r"--oem 3 --psm 6 -c preserve_interword_spaces=1"
         text = pytesseract.image_to_string(processed_image, config=custom_config)
         if not text.strip():
             raise ValueError("No text detected")
+
         return text
-    except Exception:
-        logging.error("OCR/Parsing Error: Text extraction from image failed.")
+
+    except Exception as e:
+        logging.error(f"OCR/Parsing Error: {str(e)}")
         raise ValueError("Text extraction from image failed.")

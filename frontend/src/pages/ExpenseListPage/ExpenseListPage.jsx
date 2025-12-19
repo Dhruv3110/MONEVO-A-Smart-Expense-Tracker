@@ -97,12 +97,12 @@ const ExpenseListPage = ({
 
   return (
     <div className="max-w-6xl mx-auto sm:px-6 relative">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3">
-        <Search className="text-blue-600" />
+      <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-8 flex items-center gap-3">
+        <Search className="text-cyan-400" />
         Expense List
       </h2>
 
-      <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-2xl p-6 mb-6 border border-slate-700">
         {/* Search + Filter */}
         <SearchFilter
           searchTerm={searchTerm}

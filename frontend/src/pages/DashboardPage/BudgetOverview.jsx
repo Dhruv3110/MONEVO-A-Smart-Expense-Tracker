@@ -13,7 +13,7 @@ const BudgetOverview = ({ expenses, categories, budgets }) => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default BudgetOverview;

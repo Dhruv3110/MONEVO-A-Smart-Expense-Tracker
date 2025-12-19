@@ -1,7 +1,12 @@
+from dotenv import load_dotenv
+from pathlib import Path
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
 from server.config.settings import app
 from server.routes.expenses_route import router as expenses_router
 from fastapi.responses import JSONResponse
 from fastapi.requests import Request
+# server/main.py
 
 # Register routes
 app.include_router(expenses_router)

@@ -69,13 +69,15 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl shadow-black/20 sticky top-0 z-50 border-b border-slate-700">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-            <Sparkles className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-800">MONEVO</h1>
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navigate("/")}>
+            <Sparkles className="w-8 h-8 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
+            <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+              MONEVO
+            </h1>
           </div>
 
           {/* Desktop Menu */}
@@ -85,10 +87,10 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
                 key={idx}
                 to={link.to}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded-lg transition-all ${
+                  `px-4 py-2 rounded-lg transition-all font-medium ${
                     isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-600 hover:bg-gray-100"
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/50"
+                      : "text-slate-300 hover:bg-slate-700 hover:text-cyan-400"
                   }`
                 }
               >
@@ -100,11 +102,11 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
             {user && (
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="relative px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-all"
+                className="relative px-4 py-2 rounded-lg text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-all"
               >
                 <Bell size={20} />
                 {notifications.length > 0 && (
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-lg shadow-red-500/50"></span>
                 )}
               </button>
             )}
@@ -114,7 +116,7 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
               <div className="relative ml-4" ref={userMenuRef}>
                 <button
                   onClick={() => setUserMenuOpen(v => !v)}
-                  className="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white font-semibold hover:ring-2 hover:ring-blue-300 transition"
+                  className="w-9 h-9 flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:ring-2 hover:ring-cyan-400 hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
                 >
                   {getInitial(user.displayName || user.email)}
                 </button>
@@ -126,11 +128,11 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.18 }}
-                      className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg overflow-hidden"
+                      className="absolute right-0 mt-2 w-40 bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-lg shadow-2xl overflow-hidden"
                     >
                       <button
                         onClick={handleLogout}
-                        className="flex w-full items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        className="flex w-full items-center gap-2 px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-red-400 transition-colors"
                       >
                         <LogOut size={16} /> Logout
                       </button>
@@ -145,7 +147,7 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
           <div className="md:hidden">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="text-gray-600 hover:text-blue-600"
+              className="text-slate-300 hover:text-cyan-400 transition-colors"
             >
               {menuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -161,7 +163,7 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2, ease: "easeInOut" }}
-              className="md:hidden mt-4 flex flex-col gap-2"
+              className="md:hidden mt-4 flex flex-col gap-2 pb-2"
             >
               {navLinks.map((link, idx) => (
                 <NavLink
@@ -169,10 +171,10 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
                   to={link.to}
                   onClick={() => setMenuOpen(false)}
                   className={({ isActive }) =>
-                    `w-full text-left px-4 py-2 rounded-lg transition-all ${
+                    `w-full text-left px-4 py-2 rounded-lg transition-all font-medium ${
                       isActive
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-600 hover:bg-gray-100"
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
+                        : "text-slate-300 hover:bg-slate-700 hover:text-cyan-400"
                     }`
                   }
                 >
@@ -187,29 +189,29 @@ const Navbar = ({ notifications, showNotifications, setShowNotifications }) => {
                     setShowNotifications(!showNotifications);
                     setMenuOpen(false);
                   }}
-                  className="relative w-full text-left px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-all"
+                  className="relative w-full text-left px-4 py-2 rounded-lg text-slate-300 hover:bg-slate-700 hover:text-cyan-400 transition-all"
                 >
                   <Bell size={20} className="inline mr-2" /> Notifications
                   {notifications.length > 0 && (
-                    <span className="absolute top-2 right-6 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                    <span className="absolute top-2 right-6 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-lg shadow-red-500/50"></span>
                   )}
                 </button>
               )}
 
               {/* User + Logout */}
               {user && (
-                <div className="flex items-center justify-between px-4 py-2 mt-2 bg-gray-100 rounded-lg">
+                <div className="flex items-center justify-between px-4 py-2 mt-2 bg-slate-800/50 rounded-lg border border-slate-700">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
+                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg shadow-cyan-500/50">
                       {getInitial(user.displayName || user.email)}
                     </div>
-                    <span className="text-gray-700 font-medium">
+                    <span className="text-slate-200 font-medium">
                       {user.displayName || user.email.split("@")[0]}
                     </span>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+                    className="bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-lg hover:from-red-600 hover:to-red-700 shadow-lg hover:shadow-red-500/50 transition-all"
                   >
                     Logout
                   </button>

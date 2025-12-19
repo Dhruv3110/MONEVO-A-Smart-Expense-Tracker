@@ -77,12 +77,8 @@ const UploadPage = ({
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://localhost:8000/api/expenses/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch("http://localhost:8000/api/expenses/upload", { method: "POST", body: formData, });
       const data = await res.json();
-
       const expenseRef = ref(db, `expenses/${userId}`);
 
       data.items.forEach((item) => {
@@ -173,8 +169,8 @@ const UploadPage = ({
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3">
-        <Upload className="text-blue-600" />
+      <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-8 flex items-center gap-3">
+        <Upload className="text-cyan-400" />
         Upload Receipt
       </h2>
 

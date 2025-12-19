@@ -116,6 +116,20 @@ const App = () => {
       console.error("Failed to remove notification:", err);
     }
   };
+  const clearAllNotifications = async () => {
+    if (!userId) {
+      setNotifications([]);
+      return;
+    }
+
+    try {
+      await remove(ref(db, `notifications/${userId}`));
+      setNotifications([]);
+    } catch (err) {
+      console.error("Failed to clear notifications:", err);
+    }
+  };
+
 
 
   const Protected = ()=> {
@@ -125,7 +139,7 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       
       {showAuth && (
         <AuthPage authMode={authMode} setAuthMode={setAuthMode} setShowAuth={setShowAuth}/>
@@ -145,6 +159,7 @@ const App = () => {
               setNotifications={setNotifications}
               onClose={()=>setShowNotifications(false)}
               removeNotification={removeNotification}
+              clearAllNotifications={clearAllNotifications}
             />
           )}
         </>
